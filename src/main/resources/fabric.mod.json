@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "net.wurstclient.WurstInitializer"
+    ],
+    "seedcrackerx": [
+      "anticope.rejects.utils.SeedCrackerEP"
     ]
   },
   "mixins": [

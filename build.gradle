@@ -42,7 +42,7 @@ dependencies {
 	modImplementation 'com.google.code.findbugs:jsr305:3.0.2'
 
 	// seed .locate and ore sim
-	extraLibs('com.seedfinding:mc_math:0eb505174da8a92550f8ec6efe254e0fa936cc0d') { transitive = false }
+	//extraLibs('com.seedfinding:mc_math:0eb505174da8a92550f8ec6efe254e0fa936cc0d') { transitive = false }
 	extraLibs('com.seedfinding:mc_seed:5518e3ba3ee567fb0b51c15958967f70a6a19e02') { transitive = false }
 	extraLibs('com.seedfinding:mc_core:d685a37f0a466d4bf800e7f285daf9ef73c81678') { transitive = false }
 	extraLibs('com.seedfinding:mc_noise:a6ab8e6c688491829f8d2adf845392da22ef8e9c') { transitive = false }
@@ -52,7 +52,7 @@ dependencies {
 	
 	// seedcracker api
 	implementation (include('com.github.19MisterX98.SeedcrackerX:seedcrackerx-api:2.10.1')) {transitive = false}
-//	implementation (include('com.github.19MisterX98.SeedcrackerX:seedcrackerx-api:master-SNAPSHOT')) {transitive = false}
+	//implementation (include('com.github.19MisterX98.SeedcrackerX:seedcrackerx-api:master-SNAPSHOT')) {transitive = false}
 
 	configurations.implementation.extendsFrom(configurations.extraLibs)
 }

@@ -1,5 +1,7 @@
 # Wurst Client v7
 
+<img src="https://img.shields.io/github/downloads/buiawpkgew1/Wurst7/total?style=flat-square" alt="Release Download"/>
+
 ## Downloads (for users)
 
 https://www.wurstclient.net/download/

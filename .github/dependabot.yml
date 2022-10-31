@@ -1,0 +1,12 @@
+
+version: 2
+updates:
+  - package-ecosystem: "gradle" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+      branch: ['master', '1.16.5', '1.19.1', '22w24a', '1.17.1', '1.18.2', '1.19', '1.19.2']
+  - package-ecosystem: "github-actions" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"

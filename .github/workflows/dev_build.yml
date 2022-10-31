@@ -3,11 +3,11 @@ on:
   workflow_dispatch:
     inputs:
       release_version:
-        description: 'Release version'
+        description: '发布版本'
         required: true
         type: string
       is_prerelease:
-        description: 'is Pre-release?'
+        description: '是预发布的?'
         required: false
         type: boolean
 

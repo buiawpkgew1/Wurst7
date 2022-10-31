@@ -5,8 +5,7 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
-    target-branch:
-      - '1.18.2'
+    target-branch: '1.18.2'
     assignees:
       - "buiawpkgew1"
   - package-ecosystem: "github-actions" # See documentation for possible values

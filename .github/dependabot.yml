@@ -1,7 +1,7 @@
 
 version: 2
 updates:
-   - package-ecosystem: "github-actions" # See documentation for possible values
+  - package-ecosystem: "github-actions" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
@@ -13,3 +13,32 @@ updates:
     target-branch: "1.16.5"
     assignees:
       - "buiawpkgew1"
+  - package-ecosystem: "gradle" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+    target-branch: "1.16.5"
+    assignees:
+      - "buiawpkgew1"
+  - package-ecosystem: "gradle" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+    target-branch: "1.16.5"
+    assignees:
+      - "buiawpkgew1"
+  - package-ecosystem: "gradle" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+    target-branch: "1.16.5"
+    assignees:
+      - "buiawpkgew1"
+
+
+
+
+
+
+
+

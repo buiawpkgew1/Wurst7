@@ -40,6 +40,13 @@ updates:
     target-branch: "1.19.2"
     assignees:
       - "buiawpkgew1"
+  - package-ecosystem: "gradle" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+    target-branch: "22w44a"
+    assignees:
+      - "buiawpkgew1"
 
 
 

@@ -36,9 +36,8 @@ dependencies {
 	// even though it's Minecraft that actually uses it.
 	modImplementation 'com.google.code.findbugs:jsr305:3.0.2'
 
-	// seedcracker api
-	implementation (include('com.github.19MisterX98.SeedcrackerX:seedcrackerx-api:2.10.1')) {transitive = false}
-	//implementation (include('com.github.19MisterX98.SeedcrackerX:seedcrackerx-api:master-SNAPSHOT')) {transitive = false}
+	// seedcracker
+	implementation 'com.github.buiawpkgew1.baritone:baritone-fabric:a565b5ff33'
 
 }
 

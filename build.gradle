@@ -10,13 +10,6 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
-allprojects {
-    repositories {
-      maven { url 'https://maven.aliyun.com/repository/google/' }
-      maven { url 'https://maven.aliyun.com/repository/jcenter/'}
-    }
-}
-
 repositories {
 	maven { url 'https://jitpack.io' }
 	// Add repositories to retrieve artifacts from in here.

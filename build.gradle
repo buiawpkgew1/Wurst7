@@ -37,7 +37,7 @@ dependencies {
 	modImplementation 'com.google.code.findbugs:jsr305:3.0.2'
 
 	// seedcracker
-	implementation 'com.github.buiawpkgew1.baritone:baritone-fabric:a565b5ff33'
+	implementation 'com.github.buiawpkgew1.baritone:baritone-fabric:Meteor1.19.2'
 
 }
 

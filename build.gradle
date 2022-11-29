@@ -36,8 +36,8 @@ dependencies {
 	// even though it's Minecraft that actually uses it.
 	modImplementation 'com.google.code.findbugs:jsr305:3.0.2'
 
-	// seedcracker
-	implementation 'com.github.buiawpkgew1.baritone:baritone-fabric:Meteor1.19.2'
+	// Baritone (https://github.com/buiawpkgew1/baritone)
+	implementation 'com.github.buiawpkgew1.baritone:fabric:Meteor1.19.2'
 
 }
 

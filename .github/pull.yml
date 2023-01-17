@@ -1,7 +1,7 @@
 version: "1"
 rules:
-  - base: main
-    upstream: FN-FAL113:main
+  - base: master
+    upstream: Wurst-Imperium:master
     mergeMethod: merge
     assignees:
       - buiawpkgew1

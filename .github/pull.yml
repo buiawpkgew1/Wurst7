@@ -1,0 +1,9 @@
+version: "1"
+rules:
+  - base: main
+    upstream: FN-FAL113:main
+    mergeMethod: merge
+    assignees:
+      - buiawpkgew1
+    conflictReviewers:
+      - buiawpkgew1

@@ -14,4 +14,3 @@ rules:
       - buiawpkgew1
     conflictReviewers:
       - buiawpkgew1
-conflictLabel: "合并冲突"

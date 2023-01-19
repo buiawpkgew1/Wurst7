@@ -14,3 +14,10 @@ rules:
       - buiawpkgew1
     conflictReviewers:
       - buiawpkgew1
+  - base: 1.19.3
+    upstream: Wurst-Imperium:master
+    mergeMethod: merge
+    assignees:
+      - buiawpkgew1
+    conflictReviewers:
+      - buiawpkgew1

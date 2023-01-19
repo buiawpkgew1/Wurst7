@@ -61,7 +61,7 @@ jobs:
           path: build/results
       - name: Remove *-dev.jar
         run: |
-          rm **-dev.jar || true   
+          rm /home/runner/work/Wurst7/Wurst7/build/results/Package/*-dev.jar || true   
       - name: Publish release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:

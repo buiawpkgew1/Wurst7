@@ -16,7 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: ['master', '1.19', '1.19.1', '1.19.2','1.19.4']
+        # branch: ['master', '1.19', '1.19.1', '1.19.2','1.19.4']
+        branch: ['master']       
     steps:
       - name: Checkout ${{ matrix.branch }}
         uses: actions/checkout@v3

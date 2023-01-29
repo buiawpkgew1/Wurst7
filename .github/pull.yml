@@ -21,3 +21,10 @@ rules:
       - buiawpkgew1
     conflictReviewers:
       - buiawpkgew1
+  - base: 1.19.4
+    upstream: Wurst-Imperium:23w04a
+    mergeMethod: merge
+    assignees:
+      - buiawpkgew1
+    conflictReviewers:
+      - buiawpkgew1

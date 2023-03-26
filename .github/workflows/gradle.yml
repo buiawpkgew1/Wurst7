@@ -10,8 +10,16 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ "master" ]
+    paths:
+      - '**.java'
+      - 'gradle**'
+      - 'build.gradle'
   pull_request:
     branches: [ "master" ]
+    paths:
+      - '**.java'
+      - 'gradle**'
+      - 'build.gradle'
 
 permissions:
   contents: read

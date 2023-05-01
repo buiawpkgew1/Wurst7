@@ -15,7 +15,7 @@ rules:
     conflictReviewers:
       - buiawpkgew1
   - base: 1.19.3
-    upstream: Wurst-Imperium:master
+    upstream: Wurst-Imperium:1.19.3
     mergeMethod: merge
     assignees:
       - buiawpkgew1

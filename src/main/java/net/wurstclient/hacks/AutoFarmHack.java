@@ -32,12 +32,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.c2s.play.HandSwingC2SPacket;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.shape.VoxelShape;
 import net.wurstclient.Category;
 import net.wurstclient.SearchTags;
 import net.wurstclient.WurstClient;
@@ -48,6 +47,8 @@ import net.wurstclient.settings.CheckboxSetting;
 import net.wurstclient.settings.SliderSetting;
 import net.wurstclient.settings.SliderSetting.ValueDisplay;
 import net.wurstclient.util.BlockBreaker;
+import net.wurstclient.util.BlockPlacer;
+import net.wurstclient.util.BlockPlacer.BlockPlacingParams;
 import net.wurstclient.util.BlockUtils;
 import net.wurstclient.util.OverlayRenderer;
 import net.wurstclient.util.RenderUtils;
@@ -124,7 +125,8 @@ public final class AutoFarmHack extends Hack
 		double rangeSq = range.getValueSq();
 		int blockRange = range.getValueCeil();
 		
-		List<BlockPos> blocks = getBlockStream(eyesBlock, blockRange)
+		List<BlockPos> blocks = BlockUtils
+			.getAllInBoxStream(eyesBlock, blockRange)
 			.filter(pos -> eyesVec.squaredDistanceTo(Vec3d.of(pos)) <= rangeSq)
 			.filter(BlockUtils::canBeClicked).collect(Collectors.toList());
 		
@@ -175,7 +177,7 @@ public final class AutoFarmHack extends Hack
 	private List<BlockPos> getBlocksToReplant(Vec3d eyesVec, BlockPos eyesBlock,
 		double rangeSq, int blockRange)
 	{
-		return getBlockStream(eyesBlock, blockRange)
+		return BlockUtils.getAllInBoxStream(eyesBlock, blockRange)
 			.filter(pos -> eyesVec.squaredDistanceTo(Vec3d.of(pos)) <= rangeSq)
 			.filter(
 				pos -> BlockUtils.getState(pos).getMaterial().isReplaceable())
@@ -238,14 +240,6 @@ public final class AutoFarmHack extends Hack
 		GL11.glDisable(GL11.GL_BLEND);
 		
 		overlay.render(matrixStack, partialTicks, currentBlock);
-	}
-	
-	private Stream<BlockPos> getBlockStream(BlockPos center, int range)
-	{
-		BlockPos min = center.add(-range, -range, -range);
-		BlockPos max = center.add(range, range, range);
-		
-		return BlockUtils.getAllInBox(min, max).stream();
 	}
 	
 	private boolean shouldBeHarvested(BlockPos pos)
@@ -364,75 +358,34 @@ public final class AutoFarmHack extends Hack
 	
 	private void placeBlockSimple(BlockPos pos)
 	{
-		Direction side = null;
-		Direction[] sides = Direction.values();
-		
-		Vec3d eyesPos = RotationUtils.getEyesPos();
-		Vec3d posVec = Vec3d.ofCenter(pos);
-		double distanceSqPosVec = eyesPos.squaredDistanceTo(posVec);
-		
-		Vec3d[] hitVecs = new Vec3d[sides.length];
-		for(int i = 0; i < sides.length; i++)
-			hitVecs[i] =
-				posVec.add(Vec3d.of(sides[i].getVector()).multiply(0.5));
-		
-		for(int i = 0; i < sides.length; i++)
-		{
-			// check if neighbor can be right clicked
-			BlockPos neighbor = pos.offset(sides[i]);
-			if(!BlockUtils.canBeClicked(neighbor))
-				continue;
-			
-			// check line of sight
-			BlockState neighborState = BlockUtils.getState(neighbor);
-			VoxelShape neighborShape =
-				neighborState.getOutlineShape(MC.world, neighbor);
-			if(MC.world.raycastBlock(eyesPos, hitVecs[i], neighbor,
-				neighborShape, neighborState) != null)
-				continue;
-			
-			side = sides[i];
-			break;
-		}
-		
-		if(side == null)
-			for(int i = 0; i < sides.length; i++)
-			{
-				// check if neighbor can be right clicked
-				if(!BlockUtils.canBeClicked(pos.offset(sides[i])))
-					continue;
-				
-				// check if side is facing away from player
-				if(distanceSqPosVec > eyesPos.squaredDistanceTo(hitVecs[i]))
-					continue;
-				
-				side = sides[i];
-				break;
-			}
-		
-		if(side == null)
+		// should never happen, but just in case
+		if(!BlockUtils.getState(pos).isReplaceable())
 			return;
 		
-		Vec3d hitVec = hitVecs[side.ordinal()];
+		BlockPlacingParams params = BlockPlacer.getBlockPlacingParams(pos);
+		if(params == null || params.distanceSq() > range.getValueSq())
+			return;
 		
 		// face block
-		WURST.getRotationFaker().faceVectorPacket(hitVec);
-		if(RotationUtils.getAngleToLastReportedLookVec(hitVec) > 1)
+		WURST.getRotationFaker().faceVectorPacket(params.hitVec());
+		if(RotationUtils.getAngleToLastReportedLookVec(params.hitVec()) > 1)
 			return;
 		
-		// check timer
+		// check cooldown
 		if(IMC.getItemUseCooldown() > 0)
 			return;
 		
+		Hand hand = Hand.MAIN_HAND;
+		
 		// place block
-		IMC.getInteractionManager().rightClickBlock(pos.offset(side),
-			side.getOpposite(), hitVec);
+		ActionResult result = MC.interactionManager.interactBlock(MC.player,
+			hand, params.toHitResult());
 		
 		// swing arm
-		MC.player.networkHandler
-			.sendPacket(new HandSwingC2SPacket(Hand.MAIN_HAND));
+		if(result.isAccepted() && result.shouldSwingHand())
+			MC.player.networkHandler.sendPacket(new HandSwingC2SPacket(hand));
 		
-		// reset timer
+		// reset cooldown
 		IMC.setItemUseCooldown(4);
 	}
 	

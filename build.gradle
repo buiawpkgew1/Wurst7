@@ -46,7 +46,6 @@ dependencies {
 
 	// Baritone (https://github.com/buiawpkgew1/baritone)
 	// implementation 'com.github.buiawpkgew1.baritone:fabric:Meteor1.19.2'
-    implementation (include('com.github.buiawpkgew1.baritone:baritone:1.19.3-SNAPSHOT')) {transitive = false}
 }
 
 loom {

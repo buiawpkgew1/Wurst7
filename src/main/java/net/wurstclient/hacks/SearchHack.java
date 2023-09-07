@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -28,7 +27,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Block;
 import net.minecraft.client.gl.ShaderProgram;
 import net.minecraft.client.gl.VertexBuffer;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.BufferBuilder.BuiltBuffer;
 import net.minecraft.client.render.GameRenderer;
@@ -36,7 +34,6 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.ChunkDataS2CPacket;
@@ -78,7 +75,7 @@ public final class SearchHack extends Hack
 	private boolean notify;
 	
 	private final HashMap<Chunk, ChunkSearcher> searchers = new HashMap<>();
-	private final Set<Chunk> chunksToUpdate =
+	private final Set<ChunkPos> chunksToUpdate =
 		Collections.synchronizedSet(new HashSet<>());
 	private ExecutorService pool1;
 	
@@ -144,34 +141,26 @@ public final class SearchHack extends Hack
 	@Override
 	public void onReceivedPacket(PacketInputEvent event)
 	{
-		ClientPlayerEntity player = MC.player;
-		ClientWorld world = MC.world;
-		if(player == null || world == null)
-			return;
-		
 		Packet<?> packet = event.getPacket();
-		Chunk chunk;
+		ChunkPos chunkPos;
 		
 		if(packet instanceof BlockUpdateS2CPacket change)
-		{
-			BlockPos pos = change.getPos();
-			chunk = world.getChunk(pos);
-			
-		}else if(packet instanceof ChunkDeltaUpdateS2CPacket change)
+			chunkPos = new ChunkPos(change.getPos());
+		else if(packet instanceof ChunkDeltaUpdateS2CPacket change)
 		{
 			ArrayList<BlockPos> changedBlocks = new ArrayList<>();
 			change.visitUpdates((pos, state) -> changedBlocks.add(pos));
 			if(changedBlocks.isEmpty())
 				return;
 			
-			chunk = world.getChunk(changedBlocks.get(0));
+			chunkPos = new ChunkPos(changedBlocks.get(0));
 			
 		}else if(packet instanceof ChunkDataS2CPacket chunkData)
-			chunk = world.getChunk(chunkData.getX(), chunkData.getZ());
+			chunkPos = new ChunkPos(chunkData.getX(), chunkData.getZ());
 		else
 			return;
 		
-		chunksToUpdate.add(chunk);
+		chunksToUpdate.add(chunkPos);
 	}
 	
 	@Override
@@ -282,23 +271,26 @@ public final class SearchHack extends Hack
 	private void replaceSearchersWithChunkUpdate(Block currentBlock,
 		int dimensionId)
 	{
+		// get the chunks to update and remove them from the set
+		ChunkPos[] chunks;
 		synchronized(chunksToUpdate)
 		{
-			if(chunksToUpdate.isEmpty())
-				return;
+			chunks = chunksToUpdate.toArray(ChunkPos[]::new);
+			chunksToUpdate.clear();
+		}
+		
+		// update the chunks separately so the synchronization
+		// doesn't have to wait for that
+		for(ChunkPos chunkPos : chunks)
+		{
+			Chunk chunk = MC.world.getChunk(chunkPos.x, chunkPos.z);
 			
-			for(Iterator<Chunk> itr = chunksToUpdate.iterator(); itr.hasNext();)
-			{
-				Chunk chunk = itr.next();
-				
-				ChunkSearcher oldSearcher = searchers.get(chunk);
-				if(oldSearcher == null)
-					continue;
-				
-				removeSearcher(oldSearcher);
-				addSearcher(chunk, currentBlock, dimensionId);
-				itr.remove();
-			}
+			ChunkSearcher oldSearcher = searchers.get(chunk);
+			if(oldSearcher == null)
+				continue;
+			
+			removeSearcher(oldSearcher);
+			addSearcher(chunk, currentBlock, dimensionId);
 		}
 	}
 	

@@ -57,7 +57,7 @@ public enum WurstClient
 	public static IMinecraftClient IMC;
 	
 	public static final String VERSION = "7.37";
-	public static final String MC_VERSION = "1.20.1";
+	public static final String MC_VERSION = "1.20.2";
 	
 	private WurstAnalytics analytics;
 	private EventManager eventManager;
@@ -149,7 +149,7 @@ public enum WurstClient
 		altManager = new AltManager(altsFile, encFolder);
 		
 		zoomKey = new KeyBinding("key.wurst.zoom", InputUtil.Type.KEYSYM,
-			GLFW.GLFW_KEY_V, "Zoom");
+			GLFW.GLFW_KEY_V, KeyBinding.MISC_CATEGORY);
 		KeyBindingHelper.registerKeyBinding(zoomKey);
 		
 		analytics.trackPageView("/mc" + MC_VERSION + "/v" + VERSION,

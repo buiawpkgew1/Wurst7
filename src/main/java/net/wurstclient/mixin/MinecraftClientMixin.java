@@ -54,8 +54,6 @@ public abstract class MinecraftClientMixin
 	@Final
 	public File runDirectory;
 	@Shadow
-	private int itemUseCooldown;
-	@Shadow
 	public ClientPlayerInteractionManager interactionManager;
 	@Shadow
 	@Final
@@ -177,24 +175,6 @@ public abstract class MinecraftClientMixin
 	}
 	
 	@Override
-	public void rightClick()
-	{
-		doItemUse();
-	}
-	
-	@Override
-	public int getItemUseCooldown()
-	{
-		return itemUseCooldown;
-	}
-	
-	@Override
-	public void setItemUseCooldown(int itemUseCooldown)
-	{
-		this.itemUseCooldown = itemUseCooldown;
-	}
-	
-	@Override
 	public IClientPlayerEntity getPlayer()
 	{
 		return (IClientPlayerEntity)player;
@@ -241,11 +221,5 @@ public abstract class MinecraftClientMixin
 			e.printStackTrace();
 			return UserApiService.OFFLINE;
 		}
-	}
-	
-	@Shadow
-	private void doItemUse()
-	{
-		
 	}
 }

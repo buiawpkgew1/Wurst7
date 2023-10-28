@@ -9,10 +9,10 @@ package net.wurstclient.command;
 
 public abstract class CmdException extends Exception
 {
-	public CmdException()
+	protected CmdException()
 	{}
 	
-	public CmdException(String message)
+	protected CmdException(String message)
 	{
 		super(message);
 	}

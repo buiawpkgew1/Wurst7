@@ -37,7 +37,7 @@ public abstract class NavigatorScreen extends Screen
 	protected int nonScrollableArea = 26;
 	private boolean showScrollbar;
 	
-	public NavigatorScreen()
+	protected NavigatorScreen()
 	{
 		super(Text.literal(""));
 	}

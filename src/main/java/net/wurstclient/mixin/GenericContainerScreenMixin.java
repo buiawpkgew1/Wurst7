@@ -36,7 +36,7 @@ public abstract class GenericContainerScreenMixin
 		WurstClient.INSTANCE.getHax().autoStealHack;
 	private int mode;
 	
-	public GenericContainerScreenMixin(WurstClient wurst,
+	protected GenericContainerScreenMixin(WurstClient wurst,
 		GenericContainerScreenHandler container,
 		PlayerInventory playerInventory, Text name)
 	{

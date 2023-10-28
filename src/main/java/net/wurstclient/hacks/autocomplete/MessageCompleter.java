@@ -25,7 +25,7 @@ public abstract class MessageCompleter
 	
 	protected final ModelSettings modelSettings;
 	
-	public MessageCompleter(ModelSettings modelSettings)
+	protected MessageCompleter(ModelSettings modelSettings)
 	{
 		this.modelSettings = modelSettings;
 	}

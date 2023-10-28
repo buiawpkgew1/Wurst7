@@ -33,7 +33,7 @@ public abstract class AbstractListEditButton extends Component
 	private final String buttonText = "Edit...";
 	private final int buttonWidth;
 	
-	public AbstractListEditButton()
+	protected AbstractListEditButton()
 	{
 		buttonWidth = MC.textRenderer.getWidth(buttonText);
 	}

@@ -19,7 +19,7 @@ public abstract class Popup
 	private int height;
 	private boolean closing;
 	
-	public Popup(Component owner)
+	protected Popup(Component owner)
 	{
 		this.owner = owner;
 	}

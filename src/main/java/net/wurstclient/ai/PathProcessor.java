@@ -30,7 +30,7 @@ public abstract class PathProcessor
 	protected boolean done;
 	protected int ticksOffPath;
 	
-	public PathProcessor(ArrayList<PathPos> path)
+	protected PathProcessor(ArrayList<PathPos> path)
 	{
 		if(path.isEmpty())
 			throw new IllegalStateException("There is no path!");

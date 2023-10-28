@@ -63,7 +63,7 @@ public abstract class AltEditorScreen extends Screen
 	protected String message = "";
 	private int errorTimer;
 	
-	public AltEditorScreen(Screen prevScreen, Text title)
+	protected AltEditorScreen(Screen prevScreen, Text title)
 	{
 		super(title);
 		this.prevScreen = prevScreen;

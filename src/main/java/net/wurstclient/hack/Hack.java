@@ -25,7 +25,7 @@ public abstract class Hack extends Feature
 	private final boolean stateSaved =
 		!getClass().isAnnotationPresent(DontSaveState.class);
 	
-	public Hack(String name)
+	protected Hack(String name)
 	{
 		this.name = Objects.requireNonNull(name);
 		description = "description.wurst.hack." + name.toLowerCase();

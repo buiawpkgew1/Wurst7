@@ -24,7 +24,7 @@ public abstract class ChestEspGroup
 	private final ColorSetting color;
 	private final CheckboxSetting enabled;
 	
-	public ChestEspGroup(ColorSetting color, CheckboxSetting enabled)
+	protected ChestEspGroup(ColorSetting color, CheckboxSetting enabled)
 	{
 		this.color = Objects.requireNonNull(color);
 		this.enabled = enabled;

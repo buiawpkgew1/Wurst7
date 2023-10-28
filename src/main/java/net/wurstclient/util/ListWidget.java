@@ -50,7 +50,7 @@ public abstract class ListWidget extends AbstractParentElement
 	protected int headerHeight;
 	private boolean scrolling;
 	
-	public ListWidget(MinecraftClient client, int width, int height, int top,
+	protected ListWidget(MinecraftClient client, int width, int height, int top,
 		int bottom, int itemHeight)
 	{
 		this.client = client;

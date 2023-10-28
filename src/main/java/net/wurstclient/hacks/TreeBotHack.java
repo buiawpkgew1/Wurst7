@@ -369,12 +369,12 @@ public final class TreeBotHack extends Hack
 	
 	private abstract class TreeBotPathFinder extends PathFinder
 	{
-		public TreeBotPathFinder(BlockPos goal)
+		protected TreeBotPathFinder(BlockPos goal)
 		{
 			super(goal);
 		}
 		
-		public TreeBotPathFinder(TreeBotPathFinder pathFinder)
+		protected TreeBotPathFinder(TreeBotPathFinder pathFinder)
 		{
 			super(pathFinder);
 		}

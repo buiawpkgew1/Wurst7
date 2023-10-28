@@ -20,7 +20,7 @@ public abstract class Command extends Feature
 	private final String[] syntax;
 	private Category category;
 	
-	public Command(String name, String description, String... syntax)
+	protected Command(String name, String description, String... syntax)
 	{
 		this.name = Objects.requireNonNull(name);
 		this.description = Objects.requireNonNull(description);

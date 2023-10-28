@@ -14,7 +14,7 @@ import net.wurstclient.settings.filterlists.EntityFilterList.EntityFilter;
 public abstract class EntityFilterCheckbox extends CheckboxSetting
 	implements EntityFilter
 {
-	public EntityFilterCheckbox(String name, String description,
+	protected EntityFilterCheckbox(String name, String description,
 		boolean checked)
 	{
 		super(name, description, checked);

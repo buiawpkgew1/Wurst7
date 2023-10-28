@@ -560,7 +560,7 @@ public final class NavigatorFeatureScreen extends NavigatorScreen
 		public Color color;
 		public int textColor = 0xffffff;
 		
-		public ButtonData(int x, int y, int width, int height,
+		protected ButtonData(int x, int y, int width, int height,
 			String buttonText, int color)
 		{
 			super(x, y, width, height);

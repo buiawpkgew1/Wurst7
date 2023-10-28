@@ -13,7 +13,7 @@ public abstract class Alt
 {
 	private boolean favorite;
 	
-	public Alt(boolean favorite)
+	protected Alt(boolean favorite)
 	{
 		this.favorite = favorite;
 	}

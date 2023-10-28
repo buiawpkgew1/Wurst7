@@ -27,7 +27,7 @@ public final class BookOffersEditButton extends AbstractListEditButton
 	@Override
 	protected void openScreen()
 	{
-		MC.setScreen(new EditBookOffersScreen(MC.currentScreen, setting));
+		MC.setScreen(new EditBookOffersScreen(AbstractListEditButton.MC.currentScreen, setting));
 	}
 	
 	@Override

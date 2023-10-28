@@ -30,8 +30,8 @@ public class FlyPathProcessor extends PathProcessor
 	public void process()
 	{
 		// get positions
-		BlockPos pos = BlockPos.ofFloored(MC.player.getPos());
-		Vec3d posVec = MC.player.getPos();
+		BlockPos pos = BlockPos.ofFloored(PathProcessor.MC.player.getPos());
+		Vec3d posVec = PathProcessor.MC.player.getPos();
 		BlockPos nextPos = path.get(index);
 		int posIndex = path.indexOf(pos);
 		Box nextBox = new Box(nextPos.getX() + 0.3, nextPos.getY(),
@@ -57,9 +57,9 @@ public class FlyPathProcessor extends PathProcessor
 			// stop when changing directions
 			if(creativeFlying)
 			{
-				Vec3d v = MC.player.getVelocity();
+				Vec3d v = PathProcessor.MC.player.getVelocity();
 				
-				MC.player.setVelocity(v.x / Math.max(Math.abs(v.x) * 50, 1),
+				PathProcessor.MC.player.setVelocity(v.x / Math.max(Math.abs(v.x) * 50, 1),
 					v.y / Math.max(Math.abs(v.y) * 50, 1),
 					v.z / Math.max(Math.abs(v.z) * 50, 1));
 			}
@@ -71,7 +71,7 @@ public class FlyPathProcessor extends PathProcessor
 		}
 		
 		lockControls();
-		MC.player.getAbilities().flying = creativeFlying;
+		PathProcessor.MC.player.getAbilities().flying = creativeFlying;
 		boolean x = posVec.x < nextBox.minX || posVec.x > nextBox.maxX;
 		boolean y = posVec.y < nextBox.minY || posVec.y > nextBox.maxY;
 		boolean z = posVec.z < nextBox.minZ || posVec.z > nextBox.maxZ;
@@ -94,16 +94,16 @@ public class FlyPathProcessor extends PathProcessor
 		
 		if(creativeFlying)
 		{
-			Vec3d v = MC.player.getVelocity();
+			Vec3d v = PathProcessor.MC.player.getVelocity();
 			
 			if(!x)
-				MC.player.setVelocity(v.x / Math.max(Math.abs(v.x) * 50, 1),
+				PathProcessor.MC.player.setVelocity(v.x / Math.max(Math.abs(v.x) * 50, 1),
 					v.y, v.z);
 			if(!y)
-				MC.player.setVelocity(v.x,
+				PathProcessor.MC.player.setVelocity(v.x,
 					v.y / Math.max(Math.abs(v.y) * 50, 1), v.z);
 			if(!z)
-				MC.player.setVelocity(v.x, v.y,
+				PathProcessor.MC.player.setVelocity(v.x, v.y,
 					v.z / Math.max(Math.abs(v.z) * 50, 1));
 		}
 		
@@ -113,41 +113,41 @@ public class FlyPathProcessor extends PathProcessor
 		// horizontal movement
 		if(horizontal)
 		{
-			if(!creativeFlying && MC.player.getPos().distanceTo(
+			if(!creativeFlying && PathProcessor.MC.player.getPos().distanceTo(
 				vecInPos) <= WURST.getHax().flightHack.horizontalSpeed
 					.getValue())
 			{
-				MC.player.setPosition(vecInPos.x, vecInPos.y, vecInPos.z);
+				PathProcessor.MC.player.setPosition(vecInPos.x, vecInPos.y, vecInPos.z);
 				return;
 			}
 			
-			MC.options.forwardKey.setPressed(true);
+			PathProcessor.MC.options.forwardKey.setPressed(true);
 			
-			if(MC.player.horizontalCollision)
+			if(PathProcessor.MC.player.horizontalCollision)
 				if(posVec.y > nextBox.maxY)
-					MC.options.sneakKey.setPressed(true);
+					PathProcessor.MC.options.sneakKey.setPressed(true);
 				else if(posVec.y < nextBox.minY)
-					MC.options.jumpKey.setPressed(true);
+					PathProcessor.MC.options.jumpKey.setPressed(true);
 				
 			// vertical movement
 		}else if(y)
 		{
-			if(!creativeFlying && MC.player.getPos().distanceTo(
+			if(!creativeFlying && PathProcessor.MC.player.getPos().distanceTo(
 				vecInPos) <= WURST.getHax().flightHack.verticalSpeed.getValue())
 			{
-				MC.player.setPosition(vecInPos.x, vecInPos.y, vecInPos.z);
+				PathProcessor.MC.player.setPosition(vecInPos.x, vecInPos.y, vecInPos.z);
 				return;
 			}
 			
 			if(posVec.y < nextBox.minY)
-				MC.options.jumpKey.setPressed(true);
+				PathProcessor.MC.options.jumpKey.setPressed(true);
 			else
-				MC.options.sneakKey.setPressed(true);
+				PathProcessor.MC.options.sneakKey.setPressed(true);
 			
-			if(MC.player.verticalCollision)
+			if(PathProcessor.MC.player.verticalCollision)
 			{
-				MC.options.sneakKey.setPressed(false);
-				MC.options.forwardKey.setPressed(true);
+				PathProcessor.MC.options.sneakKey.setPressed(false);
+				PathProcessor.MC.options.forwardKey.setPressed(true);
 			}
 		}
 	}

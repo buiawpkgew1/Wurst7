@@ -89,16 +89,11 @@ public final class TabGui implements KeyPressListener
 			return;
 		
 		if(tabOpened)
-			switch(event.getKeyCode())
-			{
-				case GLFW.GLFW_KEY_LEFT:
-				tabOpened = false;
-				break;
-				
-				default:
-				tabs.get(selected).onKeyPress(event.getKeyCode());
-				break;
-			}
+			if (event.getKeyCode() == GLFW.GLFW_KEY_LEFT) {
+tabOpened = false;
+} else {
+tabs.get(selected).onKeyPress(event.getKeyCode());
+}
 		else
 			switch(event.getKeyCode())
 			{

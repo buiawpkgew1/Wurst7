@@ -557,15 +557,11 @@ public class JGoogleAnalyticsTracker
 	
 	private void createBuilder()
 	{
-		switch(gaVersion)
-		{
-			case V_4_7_2:
-			builder = new GoogleAnalyticsV4_7_2(configData);
-			break;
-			default:
-			builder = new GoogleAnalyticsV4_7_2(configData);
-			break;
-		}
+		if (gaVersion == V_4_7_2) {
+builder = new GoogleAnalyticsV4_7_2(configData);
+} else {
+builder = new GoogleAnalyticsV4_7_2(configData);
+}
 	}
 	
 	/**

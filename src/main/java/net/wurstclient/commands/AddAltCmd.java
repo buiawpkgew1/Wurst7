@@ -32,16 +32,11 @@ public final class AddAltCmd extends Command
 		
 		String name = args[0];
 		
-		switch(name)
-		{
-			case "all":
-			addAll();
-			break;
-			
-			default:
-			add(name);
-			break;
-		}
+		if (name == "all") {
+addAll();
+} else {
+add(name);
+}
 	}
 	
 	private void add(String name)

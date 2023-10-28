@@ -57,14 +57,12 @@ public final class AutoTotemHack extends Hack implements UpdateListener
 		if(!showCounter.isChecked())
 			return getName();
 		
-		switch(totems)
-		{
-			case 1:
-			return getName() + " [1 totem]";
-			
-			default:
-			return getName() + " [" + totems + " totems]";
-		}
+		if (totems == 1) {
+return getName() + " [1 totem]";
+}
+
+return getName() + " [" + totems + " totems]";
+
 	}
 	
 	@Override
